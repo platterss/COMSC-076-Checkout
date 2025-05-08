@@ -33,7 +33,7 @@ public class Checkout {
             stations.add(new Station()); // Create stations (cashiers)
         }
 
-        Queue<CustomerWrapper> line = new Queue<>(); // One big line
+        Queue<Customer> line = new Queue<>(); // One big line
 
         int currentTime = 0; // Clock starts at 0
         int nextCustomerTime = getNextArrivalTime(); // Time when next customer will arrive
@@ -45,16 +45,17 @@ public class Checkout {
             // New customer arrives
             if (currentTime == nextCustomerTime) {
                 Customer newCustomer = new Customer();
-                line.enqueue(new CustomerWrapper(newCustomer, currentTime));
+                newCustomer.setArrivalTime(currentTime);
+                line.enqueue(newCustomer);
                 nextCustomerTime = currentTime + getNextArrivalTime(); // Schedule next customer
             }
 
             // Assign customers to free stations
             for (Station s : stations) {
                 if (s.isFree() && !line.isEmpty()) {
-                    CustomerWrapper cw = line.dequeue();
-                    totalWaitTime += (currentTime - cw.arrivalTime);
-                    s.assignCustomer(cw.customer);
+                    Customer customer = line.dequeue();
+                    totalWaitTime += (currentTime - customer.getArrivalTime());
+                    s.assignCustomer(customer);
                     customersServed++;
                 }
             }
@@ -77,7 +78,7 @@ public class Checkout {
     // Model 2: Fewest Line Model (choose the shortest line)
     public static void simulateFewestLineModel() {
         ArrayList<Station> stations = new ArrayList<>();
-        ArrayList<Queue<CustomerWrapper>> lines = new ArrayList<>();
+        ArrayList<Queue<Customer>> lines = new ArrayList<>();
 
         // Create stations and separate lines for each station
         for (int i = 0; i < NUM_STATIONS; i++) {
@@ -102,16 +103,18 @@ public class Checkout {
                         bestLine = i;
                     }
                 }
-                lines.get(bestLine).enqueue(new CustomerWrapper(newCustomer, currentTime));
+
+                newCustomer.setArrivalTime(currentTime);
+                lines.get(bestLine).enqueue(newCustomer);
                 nextCustomerTime = currentTime + getNextArrivalTime();
             }
 
             // Assign customers to their own station
             for (int i = 0; i < NUM_STATIONS; i++) {
                 if (stations.get(i).isFree() && !lines.get(i).isEmpty()) {
-                    CustomerWrapper cw = lines.get(i).dequeue();
-                    totalWaitTime += (currentTime - cw.arrivalTime);
-                    stations.get(i).assignCustomer(cw.customer);
+                    Customer customer = lines.get(i).dequeue();
+                    totalWaitTime += (currentTime - customer.getArrivalTime());
+                    stations.get(i).assignCustomer(customer);
                     customersServed++;
                 }
             }
@@ -122,7 +125,7 @@ public class Checkout {
             }
 
             // Track the maximum line length across all lines
-            for (Queue<CustomerWrapper> q : lines) {
+            for (Queue<Customer> q : lines) {
                 maxQueueLength = Math.max(maxQueueLength, q.size());
             }
 
@@ -135,7 +138,7 @@ public class Checkout {
     // Model 3: Random Line Model (choose a random line)
     public static void simulateRandomLineModel() {
         ArrayList<Station> stations = new ArrayList<>();
-        ArrayList<Queue<CustomerWrapper>> lines = new ArrayList<>();
+        ArrayList<Queue<Customer>> lines = new ArrayList<>();
 
         // Create stations and separate lines
         for (int i = 0; i < NUM_STATIONS; i++) {
@@ -153,17 +156,18 @@ public class Checkout {
             // New customer arrives
             if (currentTime == nextCustomerTime) {
                 Customer newCustomer = new Customer();
+                newCustomer.setArrivalTime(currentTime);
                 int randomLine = rand.nextInt(NUM_STATIONS); // Pick random line
-                lines.get(randomLine).enqueue(new CustomerWrapper(newCustomer, currentTime));
+                lines.get(randomLine).enqueue(newCustomer);
                 nextCustomerTime = currentTime + getNextArrivalTime();
             }
 
             // Assign customers to stations
             for (int i = 0; i < NUM_STATIONS; i++) {
                 if (stations.get(i).isFree() && !lines.get(i).isEmpty()) {
-                    CustomerWrapper cw = lines.get(i).dequeue();
-                    totalWaitTime += (currentTime - cw.arrivalTime);
-                    stations.get(i).assignCustomer(cw.customer);
+                    Customer customer = lines.get(i).dequeue();
+                    totalWaitTime += (currentTime - customer.getArrivalTime());
+                    stations.get(i).assignCustomer(customer);
                     customersServed++;
                 }
             }
@@ -174,7 +178,7 @@ public class Checkout {
             }
 
             // Track maximum line length
-            for (Queue<CustomerWrapper> q : lines) {
+            for (Queue<Customer> q : lines) {
                 maxQueueLength = Math.max(maxQueueLength, q.size());
             }
 
