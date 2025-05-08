@@ -39,18 +39,18 @@ public class Customer {
         return random.nextInt(upperBound - lowerBound + 1) + lowerBound;
     }
 
-    /**
-     * Constructor for creating a customer with specific values
-     * @param numItems the number of items the customer has
-     * @param timePerItem the time it takes to scan each item
-     * @param timeToPay the time it takes to pay
-     */
-    public Customer(int numItems, int timePerItem, int timeToPay) {
-        this.numItems = numItems;
-        this.timePerItem = timePerItem;
-        this.timeToPay = timeToPay;
-        this.arrivalTime = 0;
-    }
+//    /**
+//     * Constructor for creating a customer with specific values
+//     * @param numItems the number of items the customer has
+//     * @param timePerItem the time it takes to scan each item
+//     * @param timeToPay the time it takes to pay
+//     */
+//    public Customer(int numItems, int timePerItem, int timeToPay) {
+//        this.numItems = numItems;
+//        this.timePerItem = timePerItem;
+//        this.timeToPay = timeToPay;
+//        this.arrivalTime = 0;
+//    }
 
     // Accessors
 
