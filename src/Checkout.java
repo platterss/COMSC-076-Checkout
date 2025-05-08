@@ -5,9 +5,6 @@ public class Checkout {
 
     // Constants for simulation
     public static final int SIMULATION_TIME = 7200; // 2 hours = 7200 seconds
-    public static final int CUSTOMER_MIN_ARRIVAL = 15; // Customers arrive every 15–30 seconds
-    public static final int CUSTOMER_MAX_ARRIVAL = 30;
-
     public static final int NUM_STATIONS = 5; // Number of checkout stations (cashiers)
 
     static Random rand = new Random(); // Random number generator
@@ -192,7 +189,7 @@ public class Checkout {
 
     // How long until the next customer arrives
     public static int getNextArrivalTime() {
-        return rand.nextInt(CUSTOMER_MAX_ARRIVAL - CUSTOMER_MIN_ARRIVAL + 1) + CUSTOMER_MIN_ARRIVAL;
+        return rand.nextInt(Customer.MAX_ARRIVAL_TIME - Customer.MIN_ARRIVAL_TIME + 1) + Customer.MIN_ARRIVAL_TIME;
     }
 
     // Print the statistics after the simulation ends

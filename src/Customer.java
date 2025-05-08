@@ -11,6 +11,9 @@ public class Customer {
     private static final int TIME_TO_PAY_LOWER_BOUND = 2;
     private static final int TIME_TO_PAY_UPPER_BOUND = 45;
 
+    public static final int MIN_ARRIVAL_TIME = 15; // Customers arrive every 15–30 seconds
+    public static final int MAX_ARRIVAL_TIME = 30;
+
     // Member variables
     private final int numItems;
     private final int timePerItem;
