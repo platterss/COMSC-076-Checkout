@@ -2,17 +2,17 @@ import java.util.Random;
 
 public class Customer {
     // Constant static variables
-    private static final int NUM_ITEMS_LOWER_BOUND = 1;
-    private static final int NUM_ITEMS_UPPER_BOUND = 25;
+    private static final int NUM_ITEMS_LOWER_BOUND = 20;
+    private static final int NUM_ITEMS_UPPER_BOUND = 30;
 
-    private static final int TIME_PER_ITEM_LOWER_BOUND = 1;
-    private static final int TIME_PER_ITEM_UPPER_BOUND = 6;
+    private static final int TIME_PER_ITEM_LOWER_BOUND = 2;
+    private static final int TIME_PER_ITEM_UPPER_BOUND = 4;
 
-    private static final int TIME_TO_PAY_LOWER_BOUND = 2;
-    private static final int TIME_TO_PAY_UPPER_BOUND = 45;
+    private static final int TIME_TO_PAY_LOWER_BOUND = 5;
+    private static final int TIME_TO_PAY_UPPER_BOUND = 30;
 
-    public static final int MIN_ARRIVAL_TIME = 15; // Customers arrive every 15–30 seconds
-    public static final int MAX_ARRIVAL_TIME = 30;
+    public static final int MIN_ARRIVAL_TIME = 12; // Customers arrive every 12-25 seconds
+    public static final int MAX_ARRIVAL_TIME = 25;
 
     // Member variables
     private final int numItems;
