@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Customer {
     // Constant static variables
@@ -11,8 +11,8 @@ public class Customer {
     private static final int TIME_TO_PAY_LOWER_BOUND = 5;
     private static final int TIME_TO_PAY_UPPER_BOUND = 30;
 
-    public static final int MIN_ARRIVAL_TIME = 12; // Customers arrive every 12-25 seconds
-    public static final int MAX_ARRIVAL_TIME = 25;
+    public static final int MIN_ARRIVAL_TIME = 1; // Customers arrive every 1-3o seconds
+    public static final int MAX_ARRIVAL_TIME = 30;
 
     // Member variables
     private final int numItems;
@@ -25,9 +25,10 @@ public class Customer {
      * Default constructor for creating a customer with random values
      */
     public Customer() {
-        this.numItems = getRandom(NUM_ITEMS_LOWER_BOUND, NUM_ITEMS_UPPER_BOUND);
-        this.timePerItem = getRandom(TIME_PER_ITEM_LOWER_BOUND, TIME_PER_ITEM_UPPER_BOUND);
-        this.timeToPay = getRandom(TIME_TO_PAY_LOWER_BOUND, TIME_TO_PAY_UPPER_BOUND);
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
+        this.numItems = rnd.nextInt(NUM_ITEMS_LOWER_BOUND, NUM_ITEMS_UPPER_BOUND);
+        this.timePerItem = rnd.nextInt(TIME_PER_ITEM_LOWER_BOUND, TIME_PER_ITEM_UPPER_BOUND);
+        this.timeToPay = rnd.nextInt(TIME_TO_PAY_LOWER_BOUND, TIME_TO_PAY_UPPER_BOUND);
         this.arrivalTime = 0;
     }
 
@@ -37,10 +38,7 @@ public class Customer {
      * @param upperBound the upper bound
      * @return a random number between lowerBound and upperBound
      */
-    private static int getRandom(int lowerBound, int upperBound) {
-        Random random = new Random();
-        return random.nextInt(upperBound - lowerBound + 1) + lowerBound;
-    }
+
 
 //    /**
 //     * Constructor for creating a customer with specific values
