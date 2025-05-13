@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Checkout {
 
@@ -7,7 +7,6 @@ public class Checkout {
     public static final int SIMULATION_TIME = 7200; // 2 hours = 7200 seconds
     public static final int NUM_STATIONS = 5; // Number of checkout stations (cashiers)
 
-    static Random rand = new Random(); // Random number generator
 
     public static void main(String[] args) {
         System.out.println("Starting Checkout Simulation...");
@@ -154,7 +153,7 @@ public class Checkout {
             if (currentTime == nextCustomerTime) {
                 Customer newCustomer = new Customer();
                 newCustomer.setArrivalTime(currentTime);
-                int randomLine = rand.nextInt(NUM_STATIONS); // Pick random line
+                int randomLine = ThreadLocalRandom.current().nextInt(NUM_STATIONS); // Pick random line
                 lines.get(randomLine).enqueue(newCustomer);
                 nextCustomerTime = currentTime + getNextArrivalTime();
             }
@@ -189,7 +188,7 @@ public class Checkout {
 
     // How long until the next customer arrives
     public static int getNextArrivalTime() {
-        return rand.nextInt(Customer.MAX_ARRIVAL_TIME - Customer.MIN_ARRIVAL_TIME + 1) + Customer.MIN_ARRIVAL_TIME;
+        return ThreadLocalRandom.current().nextInt(Customer.MIN_ARRIVAL_TIME, Customer.MAX_ARRIVAL_TIME + 1);
     }
 
     // Print the statistics after the simulation ends
